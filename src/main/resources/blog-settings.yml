@@ -1,0 +1,7 @@
+blog:
+  resources:
+    scripts:
+      - /resources/js/bundle.js
+
+  page:
+    title: brandon's blog

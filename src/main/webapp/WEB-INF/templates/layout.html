@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}
+    <meta charset="UTF-8">
+    {% endblock %}
+    {% block title %}
+    <title>{{ page.title }}</title>
+    {% endblock %}
+</head>
+<body>
+<section>
+{% block content %}
+Default Content
+{% endblock %}
+</section>
+
+{% block footer %}
+<footer>Default Footer</footer>
+{% endblock %}
+
+{% block scripts %}
+{% for script in resources.scripts %}
+<script src="{{script}}" type="text/javascript" charset="UTF-8"></script>
+{% endfor %}
+{% endblock %}
+</body>
+</html>

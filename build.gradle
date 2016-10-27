@@ -1,0 +1,88 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		maven { url 'http://repo.spring.io/plugins-release' }
+		maven { url "https://plugins.gradle.org/m2/" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+		classpath "com.moowork.gradle:gradle-node-plugin:0.13"
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+apply plugin: 'com.moowork.node'
+
+configure(allprojects) {
+	apply plugin: 'propdeps'
+	apply plugin: 'propdeps-maven'
+	apply plugin: 'propdeps-idea'
+	apply plugin: 'propdeps-eclipse'
+}
+
+war {
+	baseName = 'blog'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+/* webpack auto build */
+//import com.moowork.gradle.node.task.NodeTask
+task webpack(type: Exec, dependsOn: 'npmInstall') {
+	println ":webpack build"
+	if ( org.gradle.internal.os.OperatingSystem.current().windows ) {
+		commandLine 'webpack.cmd'
+		//script = project.file('./node_modules/.bin/webpack.cmd')
+	} else {
+		commandLine 'webpack.sh'
+		//script = project.file('./node_modules/.bin/webpack')
+	}
+}
+
+processResources.dependsOn 'webpack'
+clean.delete << file('src/main/resources/javascript')
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.boot:spring-boot-starter-cache')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.projectlombok:lombok')
+	compile('org.springframework.retry:spring-retry')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.session:spring-session')
+	compile('org.springframework.boot:spring-boot-starter-social-facebook')
+	compile('org.springframework.boot:spring-boot-starter-social-twitter')
+	compile('org.springframework.boot:spring-boot-starter-validation')
+	compile('org.springframework.boot:spring-boot-starter-web')
+
+	compile('com.mitchellbosecke:pebble:2.2.3')
+	compile('com.mitchellbosecke:pebble-spring4:2.2.3')
+
+	runtime('com.h2database:h2')
+
+	compile('org.springframework.boot:spring-boot-starter-tomcat')
+	compile('javax.servlet:javax.servlet-api')
+
+	optional "org.springframework.boot:spring-boot-configuration-processor"
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+compileJava.dependsOn(processResources)
