@@ -1,6 +1,9 @@
 {% extends "../layout" %}
 
 {% block content %}
-<p>input form</p>
-<div id="root"></div>
+<form method="post">
+    <input type="text" id="subject" name="subject" value="">
+    <textarea id="content" name="content"></textarea>
+    <button type="submit">save</button>
+</form>
 {% endblock %}
