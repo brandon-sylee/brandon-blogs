@@ -2,7 +2,6 @@ package com.brandon.configurations;
 
 import com.brandon.BlogApplication;
 import com.brandon.BlogConstants;
-import org.slf4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +20,6 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import java.util.List;
 import java.util.TimeZone;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
 /**
  * Created by brandon Lee on 2016-10-26.
  */
@@ -30,8 +27,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 @EnableWebMvc
 @ComponentScan(basePackageClasses = BlogApplication.class)
 public class MvcConfiguration extends WebMvcConfigurerAdapter implements BlogConstants {
-    private final Logger logger = getLogger(getClass());
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/js/**").addResourceLocations("classpath:/static/javascript/");
