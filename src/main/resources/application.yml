@@ -1,3 +1,10 @@
 spring:
   session:
     store-type: hash_map
+  messages:
+    basename: classpath:i18n/messages
+    cache-seconds: -1
+    encoding: UTF-8
+
+pebble:
+  suffix: .html
