@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf()
-                .ignoringAntMatchers("/api/**");
+                //.ignoringAntMatchers("/api/**");
+                .disable();
     }
 }

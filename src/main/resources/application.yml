@@ -5,6 +5,14 @@ spring:
     basename: classpath:i18n/messages
     cache-seconds: -1
     encoding: UTF-8
+  social:
+    facebook:
+      app-id: 183086365478299
+      app-secret: 938dcbae780dd8bd13f7f75edf08aaee
+  data:
+    rest:
+      base-path: /api
+      default-page-size: 20
 
 pebble:
   suffix: .html

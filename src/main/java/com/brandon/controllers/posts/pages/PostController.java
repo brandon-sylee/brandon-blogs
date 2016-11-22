@@ -3,11 +3,14 @@ package com.brandon.controllers.posts.pages;
 import com.brandon.controllers.posts.entities.PostEntity;
 import com.brandon.controllers.posts.services.PostService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * Created by brandon Lee on 2016-10-26.
@@ -16,6 +19,7 @@ import javax.validation.Valid;
 @RequestMapping("post")
 @RequiredArgsConstructor
 public class PostController {
+    private final Logger logger = getLogger(getClass());
     private final String prefix = "post";
     private final String redirect = "redirect:";
     private final String POST_REDIRECT_LIST = String.join("/", redirect, "post");
@@ -35,7 +39,10 @@ public class PostController {
 
     @PostMapping
     public String save(@Valid PostEntity entity, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return POST_FORM;
+        if (bindingResult.hasErrors()) {
+            logger.warn("{} ::: {}", bindingResult.hasErrors(), bindingResult.getAllErrors());
+            return POST_FORM;
+        }
         postService.write(entity);
         return POST_REDIRECT_LIST;
     }

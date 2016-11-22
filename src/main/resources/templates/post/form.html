@@ -1,9 +1,14 @@
 {% extends "../layout" %}
 
 {% block content %}
-<form method="post">
-    <input type="text" id="subject" name="subject" value="">
+csrf : {{ _csrf.parameterName }} / {{ _csrf.token }} <br/>
+<form action="{{ href('/post') }}" method="post" name="postForm">
+    <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}"/>
+    <input type="text" id="subject" name="subject" value=""/>
     <textarea id="content" name="content"></textarea>
     <button type="submit">save</button>
 </form>
+
+{{ hasErrors('postForm') }}
+
 {% endblock %}

@@ -1,5 +1,6 @@
 package com.brandon.controllers.posts.services;
 
+import com.brandon.controllers.posts.beans.PostSearching;
 import com.brandon.controllers.posts.entities.PostEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 public interface PostService {
 
     Page<PostEntity> list(Pageable pageable);
+
+    Page<PostEntity> search(Pageable pageable, PostSearching postSearching);
 
     PostEntity read(Long id);
 

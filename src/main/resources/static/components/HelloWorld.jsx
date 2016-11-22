@@ -2,9 +2,11 @@ import React from 'react';
 
 class HelloWorld extends React.Component {
     render(){
-
         return (
-            <h1>Hello React Skeleton</h1>
+            <div>
+                <h1>Hello, world!!</h1>
+                <h2>It is {new Date().toLocaleTimeString()}.</h2>
+            </div>
         );
     }
 }
